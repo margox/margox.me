@@ -45,7 +45,8 @@ jQuery(document).ready(function($){
 		.open();
 
 	});
-  $("#m_add_video").click(function(){
+
+	$("#m_add_video").click(function(){
 		var custom_uploader = wp.media({
 			title: 'Select Video',
 			library: {
