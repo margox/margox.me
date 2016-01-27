@@ -23,6 +23,7 @@ jQuery(document).ready(function($){
     });
 
     $("#m_add_audio").click(function() {
+
         var custom_uploader = wp.media({
             title: 'Select Audio',
             library: {
