@@ -6,29 +6,29 @@
  * @link https://margox.me/gettheme/
  */
 
- define( '__THEME__', get_template_directory_uri() . '/' );
- define( '__ASSETS__', __THEME__ . 'assets/' );
- define( '__ROOT__', get_template_directory() . '/' );
- define( '__REQUIRES__', __ROOT__ . 'requires/' );
- 
- $content_width = 1110;
- 
+define( '__THEME__', get_template_directory_uri() . '/' );
+define( '__ASSETS__', __THEME__ . 'assets/' );
+define( '__ROOT__', get_template_directory() . '/' );
+define( '__REQUIRES__', __ROOT__ . 'requires/' );
+
+$content_width = 1110;
+
 if ( !function_exists( 'm_setup' ) ) {
- 
+
     function m_setup() {
 
         add_theme_support( 'automatic-feed-links' );
         add_theme_support( 'post-formats', array( 'video', 'image', 'audio', 'gallery', 'quote' ));
         add_theme_support( 'nav-menus' );
         register_nav_menus( array(
-             'header-menu' => '主要导航菜单',
+             'primary-menu' => '主要导航菜单',
         ) );
         add_theme_support( 'title-tag' );
         add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size( 1296, '', true );
         add_image_size( 'm-lg', 1296, '', true );
-        add_image_size( 'm-md', 740, 480, true );
-        add_image_size( 'm-xs', 300, 300, true );
+        add_image_size( 'm-md', 640, 480, true );
+        add_image_size( 'm-sm', 300, 300, true );
         add_filter( 'use_default_gallery_style', '__return_false' );
         add_filter( 'show_admin_bar', '__return_false' );
         remove_action( 'init', '_wp_admin_bar_init' );
@@ -41,8 +41,8 @@ if ( !function_exists( 'm_setup' ) ) {
 
 function m_enqueue_assets() {
 
+    wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'lightbox', __ASSETS__ . 'js/libs/lightbox.min.js', false, '2.7.1', true );
-    wp_enqueue_script( 'smoothscroll', __ASSETS__ . 'js/libs/smoothscroll.js', false, '1.2.1', true );
 
 }
 
@@ -64,31 +64,81 @@ function m_excerpt_more( $more ) {
 
 function m_post_class( $class ) {
 
-    $class[] = "pb-post";
+    $class[] = "m-post";
 
     if ( !has_post_thumbnail() && get_post_format() == '' ) {
         $class[] = 'no-thumbnail';
     }
 
     return $class;
+
 }
 
 add_filter( 'wp_title', 'm_wp_title' );
 add_filter( 'excerpt_more', 'm_excerpt_more' );
 add_filter( 'post_class', 'm_post_class' );
 
-function m_get_format_icon( $format ){
 
-    $icons = array(
-        'sticky'  => '<i class="icon-thumb-tack"></i>',
-        'video'   => '<i class="icon-film"></i>',
-        'audio'   => '<i class="icon-play-circle"></i>',
-        'image'   => '<i class="icon-image"></i>',
-        'gallery' => '<i class="icon-camera"></i>',
-        'quote'   => '<i class="icon-quote-left"></i>',
-    );
+function m_build_breadcrumb() {
 
-    return $icons[$format];
+    global $post;
+
+    $home_url = home_url();
+
+?>
+<div class="blog-breadcrumb-wrapper">
+    <ul class="breadcrumb c">
+        <li>
+            <a href="<?php echo $home_url; ?>"><i class="icon-home"></i> <?php bloginfo( 'name' );?></a>
+        </li>
+<?php
+
+    if ( is_category() ) {
+
+        $cat = get_category( get_query_var( 'cat' ), false );
+        if ( $cat->parent != 0 ) {
+            echo '<li>' . get_category_parents( $cat->parent, TRUE, ' | ' ) . '</li>';
+        }
+        echo '<li class="active">' . single_cat_title( '', false ) . '</li>';
+
+    } elseif ( is_search() ) {
+
+        echo '<li class="active">' . sprintf( '关键字 : <b>%s</b>', get_search_query() ) . '</li>';
+
+    } elseif ( is_day() ) {
+
+        echo '<li><a href="' . get_year_link( get_the_time( 'Y' ) ) . '">' . get_the_time( 'Y' ) . '</a></li>';
+        echo '<li><a href="' . get_month_link( get_the_time( 'Y' ), get_the_time( 'm' ) ) . '">' . get_the_time( 'F' ) . '</a></li>';
+        echo '<li class="active">' . get_the_time( 'd' ) . '</li>';
+
+    } elseif ( is_month() ) {
+
+        echo '<li><a href="' . get_year_link( get_the_time( 'Y' ) ) . '">' . get_the_time( 'Y' ) . '</a></li>';
+        echo '<li class="active">' . get_the_time( 'F' ) . '</li>';
+
+    } elseif ( is_year() ) {
+
+        echo '<li class="active">' . get_the_time( 'Y' ) . '</li>';
+
+    } elseif ( is_tag() ) {
+
+        echo '<li class="active">' . sprintf( '标签 : %s', get_query_var( 'tag' ) ) . '</li>';
+
+    } elseif ( is_author() ) {
+        global $author;
+        $userdata = get_userdata( $author );
+        echo '<li class="active">' . sprintf( '作者 : %s', $userdata->display_name ) . '</li>';
+
+    }
+
+?>
+    </ul>
+<?php
+global $wp_query;
+?>
+    <span class="post-count">共 <?php echo $wp_query->found_posts;?> 条记录</span>
+</div>
+<?php
 
 }
 
@@ -98,7 +148,8 @@ function m_get_post_image( $argus = array() ) {
         'postid' => null,
         'alt' => null,
         'class' => null,
-        'size' => 'm-sm'
+        'size' => 'm-sm',
+        'data-src' => false
     ), $argus );
 
     if ( !is_numeric( $argus['postid'] ) ) {
@@ -108,8 +159,17 @@ function m_get_post_image( $argus = array() ) {
         $alt = $argus['alt'];
     }
 
-    $attrs = array( 'class' => 'post-thumbnail' . $argus['class'] );
+    $attrs = array(
+        'class' => 'post-thumbnail' . $argus['class']
+    );
     !empty( $alt ) && $attrs['alt'] = $alt;
+
+    if ( $argus['data-src'] ) {
+        $img_id = get_post_thumbnail_id( $argus['postid'] );
+        $data_rc = wp_get_attachment_image_src( $img_id, $argus['data-src'] );
+        $attrs['data-src'] = $data_rc[0];
+        $attrs['class'] .= ' single-lightbox';
+    }
 
     return get_the_post_thumbnail( $argus['postid'], $argus['size'], $attrs );
 
@@ -123,7 +183,7 @@ function m_get_post_gallery( $postid = null ) {
 
     if ( is_array( $images['urls'] ) && count( $images['urls'] ) > 0 ) {
 
-        $html = '<ul class="m-post-gallery c" id="m-post-gallery-' . $postid . '">';
+        $html = '<ul class="post-gallery c" id="post-gallery-' . $postid . '">';
         $n = 0;
 
         foreach ( $images['urls'] as $urls ) {
@@ -138,7 +198,7 @@ function m_get_post_gallery( $postid = null ) {
             if ( !empty( $image_url ) ) {
                 $html .= '
                 <li>
-                    <a href="' . $image_url . '" data-lightbox-group="m-post-gallery-' . $postid . '">
+                    <a href="' . $image_url . '" data-lightbox="m-post-gallery-' . $postid . '">
                         <img src="' .$image_a[0] . '">
                     </a>
                 </li>
@@ -156,6 +216,36 @@ function m_get_post_gallery( $postid = null ) {
 
     return false;
 
+}
+
+function m_get_post_metas( $post = null ) {
+
+    !is_object( $post ) && $post = get_the_post();
+
+    $post_link  = get_permalink( $post->ID );
+    $post_title = get_the_title( $post->ID );
+
+    $liked = get_post_meta( $post->ID, 'liked', true );
+    $liked = is_numeric( $liked ) ? $liked : 0;
+    $post_title = urlencode( $post_title );
+    $post_link = urlencode( $post_link );
+
+?>
+                <div class="post-footer">
+                    <div class="post-cats">
+                        <?php the_category( ' / ', 'single' );?>
+                    </div>
+                    <!--<div class="post-tags">
+                        <?php //the_tags( '<span> | </span>', '<span> ,</span>', '' );?>
+                    </div>-->
+                    <div class="post-metas">
+                        <span class="post-date"><?php the_time( get_option( 'date_format' ) );?></span>
+                        <a href="<?php the_permalink();?>#comments" class="post-comments-icon"><i class="icon-bubble2"></i> <?php echo $post->comment_count;?></a>
+                        <!--<a href="javascript:void(0);" data-id="<?php the_ID();?>" class="post-like-btn<?php echo isset( $_COOKIE['m_liked_post_' . $post->ID ] ) ? ' liked' : '';?>"><i class="icon-heart"></i> <?php echo m_get_liked( $post->ID );?></a>
+                        <a href="javascript:void(0);" data-url="<?php echo $post_title;?>" data-text="<?php echo $post_link;?>" class="post-share-btn"><i class="icon-send-o"></i></a>-->
+                    </div>
+                </div>
+<?php
 }
 
 function m_get_post_quote( $postid = null ) {
@@ -179,23 +269,23 @@ function m_get_post_audio( $postid = null ) {
     !is_numeric( $postid ) && $postid = get_the_ID();
     $audio = get_post_meta( $postid, 'm_meta_audio', true );
 
-    if ( stripos( $audio, 'soundcloud' ) !== false ) {
-        $return['oembed'] = true;
-        $return['url'] = $audio;
-        $return['html'] = wp_oembed_get( $audio, array(
-             'height' => 200
-        ) );
-    } elseif ( stripos( $audio, 'mixcloud' ) !== false ) {
-        $return['oembed'] = true;
-        $return['url'] = $audio;
-        $return['html'] = '<iframe class="mixcloud-iframe" width="100%" src="//www.mixcloud.com/widget/iframe/?embed_type=widget_standard&hide_tracklist=1&hide_cover=1&feed=' . urlencode( $audio ) . '"></iframe>';
-    } elseif ( stripos( $audio, '<iframe' ) !== false || stripos( $audio, '<embed' ) !== false ) {
-        $return['oembed'] = true;
-        $return['html'] = $audio;
-    } else {
+    //if ( stripos( $audio, 'soundcloud' ) !== false ) {
+    //    $return['oembed'] = true;
+    //    $return['url'] = $audio;
+    //    $return['html'] = wp_oembed_get( $audio, array(
+    //         'height' => 200
+    //    ) );
+    //} elseif ( stripos( $audio, 'mixcloud' ) !== false ) {
+    //    $return['oembed'] = true;
+    //    $return['url'] = $audio;
+    //    $return['html'] = '<iframe class="mixcloud-iframe" width="100%" src="//www.mixcloud.com/widget/iframe/?embed_type=widget_standard&hide_tracklist=1&hide_cover=1&feed=' . urlencode( $audio ) . '"></iframe>';
+    //} elseif ( stripos( $audio, '<iframe' ) !== false || stripos( $audio, '<embed' ) !== false ) {
+    //    $return['oembed'] = true;
+    //    $return['html'] = $audio;
+    //} else {
         $return['oembed'] = false;
         $return['url'] = $audio;
-    }
+    //}
 
     return $return;
 
@@ -239,6 +329,7 @@ function m_get_liked( $id = null ) {
     $liked = is_numeric( $liked ) ? $liked : 0;
 
     return $liked;
+
 }
 
 function m_get_qrcode( $url ) {
@@ -452,11 +543,11 @@ add_filter( "mce_buttons_3", "m_editor_buttons" );
 
 function m_like_post( $id ) {
 
-    if ( is_numeric( $id ) && !isset( $_COOKIE['m_like_post_' . $id ] ) ) {
+    if ( is_numeric( $id ) && !isset( $_COOKIE['m_liked_post_' . $id ] ) ) {
         $liked = get_post_meta( $id, 'liked', true );
         $liked = $liked ? $liked : 0;
         update_post_meta( $id, 'liked', $liked + 1 );
-        setcookie( 'm_like_post_' . $id, 1 );
+        setcookie( 'm_liked_post_' . $id, 1 );
         return $liked + 1;
     } else {
         return 0;

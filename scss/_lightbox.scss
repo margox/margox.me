@@ -1,0 +1,171 @@
+/**
+ * RESTYLE LIGHTBOX2
+ * @author margox
+ * @version 1.1.0
+ */
+
+.lightboxOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  display: none;
+}
+
+.lightbox {
+  position: fixed;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 10000;
+  text-align: center;
+  line-height: 0;
+  font-weight: normal;
+}
+
+.lightbox .lb-image {
+  position: relative;
+  display: block;
+  height: auto;
+  max-width: inherit;
+  z-index: 11;
+}
+
+.lightbox a img {
+  border: none;
+}
+
+.lb-outerContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: #fff;
+  background-image: url(../images/hourglass_2.gif);
+  background-position: 50% 50%;
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+  *zoom: 1;
+  width: 250px;
+  height: 250px;
+}
+
+.lb-outerContainer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.lb-container {
+  padding: 4px;
+}
+
+.lb-loader {
+  position: absolute;
+  top: 43%;
+  left: 0;
+  height: 25%;
+  width: 100%;
+  text-align: center;
+  line-height: 0;
+}
+
+.lb-cancel {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+}
+
+.lb-nav {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  z-index: 11;
+  text-align: center;
+}
+
+.lb-container > .nav {
+  left: 0;
+}
+
+.lb-nav a {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  color: #222;
+  line-height: 30px;
+  text-decoration: none;
+  background-color: #fff;
+  // transition: .3s;
+}
+.lb-nav a:hover{
+  color: #fff;
+  background-color: $COLOR_PRIMARY;
+}
+
+.lb-nav a.lb-prev:before{
+  content: "PREV";
+}
+.lb-nav a.lb-next {
+  right: 0;
+}
+.lb-nav a.lb-next:before{
+  content: "NEXT";
+}
+.lb-nav a.lb-prev:before,
+.lb-nav a.lb-next:before{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.lb-dataContainer {
+  margin: 0 auto;
+  padding-top: 15px;
+  *zoom: 1;
+  width: 100%;
+  text-align: center;
+}
+
+.lb-dataContainer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.lb-data {
+  padding: 0 4px;
+  color: #ccc;
+}
+
+.lb-data .lb-details {
+  line-height: 1.1em;
+}
+
+.lb-data .lb-caption {
+  color: #fff;
+  font-size: 13px;
+  line-height: 1em;
+}
+
+.lb-data .lb-number{
+  display: none !important;
+}
+
+.lb-data .lb-close {
+  display: none;
+}
+
+.lb-data .lb-close:hover {
+  cursor: pointer;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
