@@ -261,7 +261,7 @@ function format_date ( $timeInt, $format='Y年m月d日' ) {
         return '';
     }
 
-    $d = time() - $timeInt;
+    $d = time() - $timeInt + 28800;
 
     if ( $d < 0 ) {
         return '';
