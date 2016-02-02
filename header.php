@@ -15,7 +15,7 @@ if ( $blog_description && ( is_home() || is_front_page() ) ) {
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' );?>">
 <link rel="shortcut icon" href="<?php echo __ASSETS__;?>images/favicon.png">
 <link rel="stylesheet" href="<?php echo __ASSETS__;?>css/styles.css">
-<?php wp_head(); ?>
+<?php //wp_head(); ?>
 </head>
 <body>
     <header class="blog-header">

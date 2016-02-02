@@ -15,7 +15,7 @@ if ( have_posts() ) {
 <?php
 if ( comments_open() || get_comments_number() ) {
 ?>
-        <div class="post-comments-wrap">
+        <div class="post-comments-wrap" id="comments">
 		    <?php comments_template();?>
         </div>
 <?php

@@ -39,14 +39,14 @@ if ( !function_exists( 'm_setup' ) ) {
  
 }
 
-function m_enqueue_assets() {
+//function m_enqueue_assets() {
+//
+//    wp_enqueue_script( 'jquery' );
+//    wp_enqueue_script( 'lightbox', __ASSETS__ . 'js/libs/lightbox.min.js', false, '2.7.1', true );
+//
+//}
 
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'lightbox', __ASSETS__ . 'js/libs/lightbox.min.js', false, '2.7.1', true );
-
-}
-
-add_action( 'wp_enqueue_scripts', 'm_enqueue_assets' );
+//add_action( 'wp_enqueue_scripts', 'm_enqueue_assets' );
 
 function m_wp_title( $title ){
 
@@ -59,7 +59,7 @@ function m_wp_title( $title ){
 }
 
 function m_excerpt_more( $more ) {
-    return "";
+    return "……";
 }
 
 function m_post_class( $class ) {
@@ -74,9 +74,14 @@ function m_post_class( $class ) {
 
 }
 
+function custom_excerpt_length( $length ) {
+    return 115;
+}
+
 add_filter( 'wp_title', 'm_wp_title' );
 add_filter( 'excerpt_more', 'm_excerpt_more' );
 add_filter( 'post_class', 'm_post_class' );
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 
 function m_build_breadcrumb() {
@@ -220,7 +225,7 @@ function m_get_post_gallery( $postid = null ) {
 
 function m_get_post_metas( $post = null ) {
 
-    !is_object( $post ) && $post = get_the_post();
+    !is_object( $post ) && $post = get_post();
 
     $post_link  = get_permalink( $post->ID );
     $post_title = get_the_title( $post->ID );
@@ -239,13 +244,47 @@ function m_get_post_metas( $post = null ) {
                         <?php //the_tags( '<span> | </span>', '<span> ,</span>', '' );?>
                     </div>-->
                     <div class="post-metas">
-                        <span class="post-date"><?php the_time( get_option( 'date_format' ) );?></span>
+                        <span class="post-date" title="<?php the_time( get_option( 'date_format' ) );?>"><?php echo format_date(get_the_time("Y-m-d H:i:s"));?></span>
                         <a href="<?php the_permalink();?>#comments" class="post-comments-icon"><i class="icon-bubble2"></i> <?php echo $post->comment_count;?></a>
                         <!--<a href="javascript:void(0);" data-id="<?php the_ID();?>" class="post-like-btn<?php echo isset( $_COOKIE['m_liked_post_' . $post->ID ] ) ? ' liked' : '';?>"><i class="icon-heart"></i> <?php echo m_get_liked( $post->ID );?></a>
                         <a href="javascript:void(0);" data-url="<?php echo $post_title;?>" data-text="<?php echo $post_link;?>" class="post-share-btn"><i class="icon-send-o"></i></a>-->
                     </div>
                 </div>
 <?php
+}
+
+function format_date ( $timeInt, $format='Y年m月d日' ) {
+
+    $timeInt = strtotime($timeInt);
+
+    if ( $timeInt === 0 ) {
+        return '';
+    }
+
+    $d = time() - $timeInt;
+
+    if ( $d < 0 ) {
+        return '';
+    } else {
+        if ( $d < 60 ) {
+            return $d . '秒前';
+        } else {
+            if ( $d < 3600 ) {
+                return floor( $d / 60 ) . '分钟前';
+            } else {
+                if ( $d < 86400 ) {
+                    return floor( $d / 3600 ) . '小时前';
+                } else {
+                    if ( $d < 2592000 ) {//3天内
+                        return floor( $d / 86400 ) . '天前';
+                    } else { 
+                        return date( $format , $timeInt );
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 function m_get_post_quote( $postid = null ) {

@@ -141,155 +141,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 .icon-html-five2:before {
   content: "\e910"; }
 
-/**
- * RESTYLE LIGHTBOX2
- * @author margox
- * @version 1.1.0
- */
-.lightboxOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background-color: black;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-  display: none; }
-
-.lightbox {
-  position: fixed;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 10000;
-  text-align: center;
-  line-height: 0;
-  font-weight: normal; }
-
-.lightbox .lb-image {
-  position: relative;
-  display: block;
-  height: auto;
-  max-width: inherit;
-  z-index: 11; }
-
-.lightbox a img {
-  border: none; }
-
-.lb-outerContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  background-color: #fff;
-  background-image: url(../images/hourglass_2.gif);
-  background-position: 50% 50%;
-  background-size: 32px 32px;
-  background-repeat: no-repeat;
-  *zoom: 1;
-  width: 250px;
-  height: 250px; }
-
-.lb-outerContainer:after {
-  content: "";
-  display: table;
-  clear: both; }
-
-.lb-container {
-  padding: 4px; }
-
-.lb-loader {
-  position: absolute;
-  top: 43%;
-  left: 0;
-  height: 25%;
-  width: 100%;
-  text-align: center;
-  line-height: 0; }
-
-.lb-cancel {
-  display: block;
-  width: 32px;
-  height: 32px;
-  margin: 0 auto; }
-
-.lb-nav {
-  position: absolute;
-  bottom: 4px;
-  left: 0;
-  height: 30px;
-  width: 100%;
-  z-index: 11;
-  text-align: center; }
-
-.lb-container > .nav {
-  left: 0; }
-
-.lb-nav a {
-  display: inline-block;
-  width: 60px;
-  height: 30px;
-  color: #222;
-  line-height: 30px;
-  text-decoration: none;
-  background-color: #fff; }
-
-.lb-nav a:hover {
-  color: #fff;
-  background-color: #DB644B; }
-
-.lb-nav a.lb-prev:before {
-  content: "PREV"; }
-
-.lb-nav a.lb-next {
-  right: 0; }
-
-.lb-nav a.lb-next:before {
-  content: "NEXT"; }
-
-.lb-nav a.lb-prev:before,
-.lb-nav a.lb-next:before {
-  font-size: 12px;
-  font-weight: bold; }
-
-.lb-dataContainer {
-  margin: 0 auto;
-  padding-top: 15px;
-  *zoom: 1;
-  width: 100%;
-  text-align: center; }
-
-.lb-dataContainer:after {
-  content: "";
-  display: table;
-  clear: both; }
-
-.lb-data {
-  padding: 0 4px;
-  color: #ccc; }
-
-.lb-data .lb-details {
-  line-height: 1.1em; }
-
-.lb-data .lb-caption {
-  color: #fff;
-  font-size: 13px;
-  line-height: 1em; }
-
-.lb-data .lb-number {
-  display: none !important; }
-
-.lb-data .lb-close {
-  display: none; }
-
-.lb-data .lb-close:hover {
-  cursor: pointer;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1; }
-
 @font-face {
   font-family: octicons-link;
   src: url(data:font/woff;charset=utf-8;base64,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) format("woff"); }
@@ -832,17 +683,21 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
   border-color: #4078c0; }
 
 html, body {
-  height: 100%;
   margin: 0;
   padding: 0;
   font-family: Helvetica, 'OpenSourceSan';
   background-color: #fff;
   -webkit-font-smoothing: antialiased; }
 
+html {
+  height: 100%;
+  background-color: #343d46; }
+
 body {
   box-sizing: border-box;
   padding-top: 130px;
-  overflow: auto; }
+  overflow: auto;
+  background-color: #fff; }
 
 .blog-header {
   position: absolute;
@@ -975,7 +830,7 @@ body {
 
 .blog-container {
   width: 800px;
-  min-height: 100%;
+  min-height: 300px;
   margin: 0 auto; }
 
 .post-list .post {
@@ -1187,6 +1042,36 @@ body {
       text-decoration: none; }
       .post-list .post-footer .post-metas a:hover {
         color: #DB644B; }
+.post-list .post-404 {
+  height: 300px;
+  padding: 70px 0 0 0;
+  text-align: center; }
+  .post-list .post-404 .icon-404 {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 30px auto;
+    color: rgba(0, 39, 59, 0.3);
+    font-size: 80px;
+    line-height: 1;
+    text-align: center; }
+  .post-list .post-404 .tip-404 {
+    margin: 0;
+    color: rgba(0, 39, 59, 0.4);
+    font-size: 14px;
+    font-weight: 300; }
+  .post-list .post-404 .btn-go-back {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 5px 40px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: rgba(0, 39, 59, 0.4);
+    border: 1px solid currentColor; }
+    .post-list .post-404 .btn-go-back:hover {
+      background-color: rgba(0, 39, 59, 0.5); }
 .post-list.single-post .post {
   padding-bottom: 0;
   border-bottom: 0; }
@@ -1205,6 +1090,7 @@ body {
   cursor: default;
   pointer-events: none; }
 .post-list.single-post .post-content {
+  margin-bottom: 20px;
   color: rgba(0, 39, 59, 0.7);
   line-height: 1.6; }
 .post-list .post-comments-wrap {
@@ -1249,5 +1135,88 @@ body {
   .blog-footer strong {
     display: block;
     margin-bottom: 10px; }
+
+/**
+ * lightbox styles
+ */
+.hidden {
+  display: none !important; }
+
+#lightbox-window-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  background: rgba(0, 0, 0, 0.85); }
+
+#lightbox-window {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  margin: auto;
+  border: solid 5px #fff;
+  background-color: #191B1D;
+  background-position: 50% 50%;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  opacity: 0; }
+
+#lightbox-window-image,
+#lightbox-window-image-next {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0; }
+
+#lightbox-window-image {
+  z-index: 1000; }
+
+#lightbox-window-image img {
+  display: block; }
+
+#lightbox-window-image-next {
+  z-index: 1001; }
+
+#lightbox-window-wrapper a {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  color: #999;
+  text-align: center;
+  font-size: 12px;
+  line-height: 52px;
+  cursor: pointer; }
+
+#lightbox-window-wrapper a:hover {
+  background: #fff; }
+
+#lightbox-window-btn-prev {
+  top: 50%;
+  left: 0;
+  margin-top: -25px; }
+
+#lightbox-window-btn-next {
+  top: 50%;
+  right: 0;
+  margin-top: -25px; }
+
+#lightbox-window-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1; }
 
 /*# sourceMappingURL=styles.css.map */

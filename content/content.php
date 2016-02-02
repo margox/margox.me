@@ -13,7 +13,7 @@ if (get_the_content()) {
 <?php
     } else {
 ?>
-            <div class="post-content"><?php the_content();?></div>
+            <div class="post-content markdown-body"><?php the_content();?></div>
 <?php   
                 }
 } else {
