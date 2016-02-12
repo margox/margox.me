@@ -205,7 +205,7 @@ function m_get_post_gallery($postid = null) {
                 $html .= '
                 <li>
                     <a href="' . $image_url . '" data-lightbox="m-post-gallery-' . $postid . '">
-                        <img src="' .$image_a[0] . '">
+                        <img src="' . str_replace(array('http:','https:'), '', $image_a[0]) . '">
                     </a>
                 </li>
                 ';
