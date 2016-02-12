@@ -4,15 +4,7 @@
 </footer>
 <script src="<?php echo __ASSETS__;?>js/libs/jquery.js"></script>
 <script src="<?php echo __ASSETS__;?>js/libs/lightbox.min.js"></script>
-<script>
-~function() {
-    $('[data-lightbox]').Lightbox();
-    $('[data-src]').Lightbox({
-        srcAttr : 'data-src',
-        single : true
-    });
-}();
-</script>
-<?php wp_footer(); ?>
+<script src="<?php echo __ASSETS__;?>js/scripts.js"></script>
+<?php wp_footer();?>
 </body>
 </html>

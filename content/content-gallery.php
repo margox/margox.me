@@ -1,5 +1,5 @@
-        <article id="post-<?php the_ID();?>" <?php post_class( 'post' );?>>
-                <div class="post-type-icon"><i class="icon-images"></i></div>
+        <article id="post-<?php the_ID();?>" <?php post_class('post');?>>
+                <div class="post-type-icon"><i class="icon-<?php echo is_sticky() ? 'pushpin' : 'images';?>"></i></div>
 <?php  
 if (get_the_content()) {
 ?>
@@ -25,7 +25,7 @@ if (get_the_content()) {
 }
 ?>
             <div class="post-attachments">
-                <?php echo m_get_post_gallery( $post->ID );?>
+                <?php echo m_get_post_gallery($post->ID);?>
             </div>
-            <?php m_get_post_metas( $post );?>
+            <?php m_get_post_metas($post);?>
         </article>

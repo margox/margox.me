@@ -8,6 +8,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 $COLOR_PRIMARY: #DB644B;
 $COLOR_DARK: #343d46;
+$COLOR_HEARER_TEXT: #949da6;
 
 @import "icons";
 //@import "lightbox";
@@ -16,8 +17,9 @@ $COLOR_DARK: #343d46;
 html,body{
     margin: 0;
     padding: 0;
-    font-family: Helvetica, 'OpenSourceSan';
+    font-family: Helvetica, 'OpenSourceSan', 'Microsoft Yahei';
     background-color: #fff;
+    cursor: default;
     -webkit-font-smoothing: antialiased;
 }
 html{
@@ -30,7 +32,9 @@ body{
     overflow: auto;
     background-color: #fff;
 }
-
+a{
+    cursor: pointer;
+}
 .blog-header{
     position: absolute;
     z-index: 50;
@@ -62,7 +66,7 @@ body{
     .menu{
         display: block;
         height: 50px;
-        margin: 0 250px;
+        margin: 0 200px;
         padding: 0;
         list-style: none;
         font-size: 0;
@@ -96,6 +100,7 @@ body{
         float: right;
         height: 30px;
         margin: 10px 0;
+
         span{
             position: absolute;
             top: 0;
@@ -105,7 +110,7 @@ body{
             width: 30px;
             height: 30px;
             margin-left: 10px;
-            color: #949da6;
+            color: $COLOR_HEARER_TEXT;
             font-size: 16px;
             text-decoration: none;
             &:hover{
@@ -121,15 +126,17 @@ body{
         }
         input{
             display: block;
-            width: 200px;
+            width: 150px;
             height: 30px;
             margin: 0;
             padding: 0 10px;
-            color: #949da6;
+            color: $COLOR_HEARER_TEXT;
             background-color: rgba(0,0,0,.2);
-            border: none;
+            border: none;//1px solid rgba(0,0,0,.1);
             outline: none;
+            transition: width .4s;
             &:focus{
+                width: 200px;
                 background-color: #fff;
             }
         }
@@ -232,7 +239,7 @@ body{
             color: #999;
             color: rgba(0,39,59,.5);
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 500;
             text-decoration: none;
             line-height: 20px;
             &:hover{
@@ -275,6 +282,7 @@ body{
             color: #999;
             color: rgba(0,39,59,.5);
             font-size: 16px;
+            line-height: 1.6;
             font-weight: normal;
             text-decoration: none;
             &:hover{
@@ -308,7 +316,7 @@ body{
             }
             img{
                 object-fit: contain;
-                background-color: #222;
+                // background-color: #222;
             }
         }
     }
@@ -325,7 +333,7 @@ body{
             height: 240px;
             border: none;
             object-fit: contain;
-            background-color: #222;
+            // background-color: #222;
         }
     }
     .post-audio{
@@ -336,7 +344,8 @@ body{
             float: left;
             width: 80px;
             height: 80px;
-            a{
+            background-color: $COLOR_PRIMARY;
+            .btn-play-pause{
                 display: block;
                 position: absolute;
                 top: 0;
@@ -345,20 +354,25 @@ body{
                 height: 80px;
                 border: none;
                 text-decoration: none;
-                color: #fff;
-                font-size: 24px;
-                line-height: 80px;
-                text-align: center;
                 background-color: rgba($COLOR_PRIMARY, .7);
-                .icon-pause{
-                    display: none;
+                i{
+                    display: block;
+                    width: 80px;
+                    height: 80px;
+                    color: #fff;
+                    font-size: 24px;
+                    line-height: 80px;
+                    text-align: center;
+                    &.icon-pause{
+                        display: none;
+                    }
                 }
                 &.playing{
                     .icon-play{
                         display: none;
                     }
                     .icon-pause{
-                        display: inline;
+                        display: block;
                     }
                 }
             }
@@ -388,7 +402,6 @@ body{
             margin: 9px 0 0 96px;
             overflow: hidden;
             span{
-                float: left;
                 height: 15px;
                 color: rgba(0,39,59,.4);
                 line-height: 16px;
@@ -396,12 +409,19 @@ body{
                 font-weight: bold;
             }
             .progress-bar{
+                display: block;
                 box-sizing: border-box;
-                width: 520px;
+                // width: 520px;
                 height: 5px;
-                margin: 5px 10px;
+                margin: 5px 45px;
                 background-color: rgba(0,39,59,.1);
-                border-left: solid 100px $COLOR_PRIMARY;
+                border-left: solid 0 $COLOR_PRIMARY;
+            }
+            .played-time{
+                float: left;
+            }
+            .total-time{
+                float: right;
             }
         }
     }
@@ -512,6 +532,20 @@ body{
             margin-bottom: 20px;
             color: rgba(0,39,59,.7);
             line-height: 1.6;
+            .gallery{
+                overflow: hidden;
+                margin: 0 -10px 20px -10px;
+                .gallery-item{
+                    float: left;
+                    margin: 10px;
+                    dt{
+                        margin: 0;
+                    }
+                    a,img{
+                        display: block;
+                    }
+                }
+            }
         }
     }
 
@@ -530,6 +564,9 @@ body{
     padding: 40px 0;
     border-top: 1px solid rgba(0,39,59,.1);
     text-align: center;
+    &:empty{
+        border: none;
+    }
     a,span{
         display: inline-block;
         width: 42px;
@@ -557,7 +594,7 @@ body{
     margin-top: 40px;
     padding: 30px;
     text-align: center;
-    color: #949da6;
+    color: $COLOR_HEARER_TEXT;
     font-size: 12px;
     background-color: $COLOR_DARK;
     border-top: 1px solid rgba(0,0,0,.5);
@@ -583,16 +620,53 @@ body{
     width: 100%;
     height: 100%;
     background: #222;
-    background: rgba(0,0,0,.85)
+    background: rgba(0,0,0,.85);
+    .spinner{
+        display: block;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        margin: auto;
+        color: #fff;
+        font-size: 36px;
+        line-height: 40px;
+        text-align: center;
+        animation: spinner 1s linear infinite;
+        -webkit-animation: spinner 1s linear infinite;
+    }
+}
+
+@keyframes spinner{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spinner{
+    0%{
+        -webkit-transform: rotate(0deg);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 #lightbox-window {
     position: absolute;
     z-index: 2;
-    top: 0;
+    top: -50px;
     right: 0;
     bottom: 0;
     left: 0;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     margin: auto;
     border: solid 5px #fff;
@@ -661,3 +735,5 @@ body{
     left: 0;
     z-index: 1;
 }
+
+@import "response";

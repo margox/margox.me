@@ -25,12 +25,12 @@ jQuery(document).ready(function($){
     $("#m_add_audio").click(function() {
 
         var custom_uploader = wp.media({
-            title: 'Select Audio',
+            title: '选择音频文件',
             library: {
                 type: 'audio'
             },
             button: {
-                text: 'Select'
+                text: '确认'
             },
             multiple: false
         }).on('select', function() {
@@ -43,12 +43,12 @@ jQuery(document).ready(function($){
     $("#m_add_video").click(function() {
 
         var custom_uploader = wp.media({
-            title: 'Select Video',
+            title: '选择视频文件',
             library: {
                 type: 'video'
             },
             button: {
-                text: 'Select'
+                text: '确认'
             },
             multiple: false
         }).on('select', function() {
@@ -63,12 +63,12 @@ jQuery(document).ready(function($){
         var gallerys = $(this).prev('.m-meta-gallery-wrapper');
         var name = $(this).data('name');
         var custom_uploader = wp.media({
-            title: 'Select Images',
+            title: '选择图片',
             library: {
                 type: 'image'
             },
             button: {
-                text: '添加图片'
+                text: '确认'
             },
             multiple: true
         }).on('select', function() {

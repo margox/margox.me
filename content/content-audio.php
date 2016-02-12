@@ -1,5 +1,5 @@
-        <article id="post-<?php the_ID();?>" <?php post_class( 'post' );?>>
-            <div class="post-type-icon"><i class="icon-music"></i></div>
+        <article id="post-<?php the_ID();?>" <?php post_class('post');?>>
+            <div class="post-type-icon"><i class="icon-<?php echo is_sticky() ? 'pushpin' : 'music';?>"></i></div>
 <?php  
 if (get_the_content()) {
 ?>
@@ -15,7 +15,7 @@ if (get_the_content()) {
 ?>
             <div class="post-content markdown-body"><?php the_content();?></div>
 <?php   
-                }
+    }
 } else {
 ?>
             <div class="post-quote">
@@ -23,20 +23,20 @@ if (get_the_content()) {
             </div>
 <?php
 }
-$post_audio = m_get_post_audio( $post->ID );
-if ( $post_audio['url'] ) {
-    $post_audio = explode( '|', $post_audio['url'] );
+$post_audio = m_get_post_audio($post->ID);
+if ($post_audio['url']) {
+    $post_audio = explode('|', $post_audio['url']);
 ?>
             <div class="post-attachments">
                 <div class="post-audio" id="post-audio-<?php echo $post->ID;?>">
-                    <audio class="post-audio-core" id="post-audio-core-<?php echo $post->ID;?>" src="<?php echo $post_audio[0];?>"></audio>
+                    <div class="post-audio-obj" data-id="<?php echo $post->ID;?>" data-audio="<?php echo $post_audio[0];?>"></div>
                     <div class="cover">
                         <a href="javascript:void(0);" class="btn-play-pause" data-id="<?php echo $post->ID;?>">
                             <i class="icon-play"></i>
                             <i class="icon-pause"></i>
                         </a>
 <?php
-    if ( has_post_thumbnail() ) {
+    if (has_post_thumbnail()) {
 ?>
                         <?php echo m_get_post_image(array('size' => 'm-md'));?>
 <?php
@@ -47,13 +47,13 @@ if ( $post_audio['url'] ) {
                     <h6 class="sub-caption"><?php echo $post_audio[2] ? $post_audio[2] : '未知歌手';?> / <?php echo $post_audio[3] ? $post_audio[3] : '未知专辑';?></h6>
                     <div class="progress">
                         <span class="played-time">00:00</span>
-                        <span class="progress-bar"></span>
                         <span class="total-time">00:00</span>
+                        <span class="progress-bar"></span>
                     </div>
                 </div>
             </div>
 <?php
 }
 ?>
-            <?php m_get_post_metas( $post );?>
+            <?php m_get_post_metas($post);?>
         </article>

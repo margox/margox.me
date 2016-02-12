@@ -1,4 +1,4 @@
-        <div <?php post_class( 'post post-404' );?>>
+        <div <?php post_class('post post-404');?>>
             <i class="icon-404 icon-times-circle"></i>
 <?php
 if (is_search()) {
