@@ -5,7 +5,7 @@
  * @version 1.0
  * @link https://margox.me/gettheme/
  */
-@ini_set('upload_max_size', '64M');
+@ini_set('upload_max_filesize', '64M');
 
 define('__THEME__', get_template_directory_uri() . '/');
 define('__ASSETS__', __THEME__ . 'assets/');
