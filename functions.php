@@ -239,7 +239,7 @@ function m_get_post_metas($post = null) {
 ?>
                 <div class="post-footer">
                     <div class="post-cats">
-                        <?php the_category(',', 'single');?>
+                        <?php the_category(' , ', 'single');?>
                     </div>
                     <!--<div class="post-tags">
                         <?php //the_tags('<span> | </span>', '<span> ,</span>', '');?>
