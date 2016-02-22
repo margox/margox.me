@@ -546,12 +546,16 @@ a{
                 }
             }
         }
+        .post-footer{
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(0,39,59,.1);
+        }
     }
 
     .post-comments-wrap{
         margin-left: 63px;
         padding-top: 50px;
-        border-top: 1px dashed rgba(0,39,59,.1);
         #dsq-content{
             opacity: 0;
         }
